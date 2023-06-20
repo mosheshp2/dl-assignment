@@ -1,0 +1,73 @@
+nav {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  color: gray;
+}
+
+nav .items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.items a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+nav .search {
+  margin-left: auto;
+}
+
+img.grayScale {
+  filter: grayscale(100%);
+}
+
+input[type="text"] {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 10px 20px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: gray;
+}
+
+input.search {
+  background-image: url(./assets/search-filled.svg);
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  width: 300px;
+}
+
+.bookList {
+  background-color: #ddd;
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #999;
+  color: #fff;
+}
