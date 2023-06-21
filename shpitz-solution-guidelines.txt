@@ -13,3 +13,4 @@ what I didn't do:
 4. styling is far from perfect. should be better
 5. components, and css, and app is not modulized well
 6. didnt add tests, and pipline build etc...
+7. didnt add state - Redux

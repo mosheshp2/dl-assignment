@@ -1,7 +1,18 @@
+div.spinner {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    background-color: rgba(100, 100, 100, 0.4);
+}
+
 .book-list {
     display: flex;
     height: 700px;
-    max-width: 1400px;
+    max-width: 1200px;
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin: 0 auto;
@@ -23,7 +34,9 @@
 }
 
 .book-image-container {
-    position: relative;
+    display: flex;
+    width: 250px;
+    height: 376px;
 }
 
 .book-image {

@@ -1,4 +1,5 @@
 import { Book } from '../models/book';
+import { isInWishlist } from './wishlist-service';
 
 interface BookResponse {
   books: Book[];
@@ -24,7 +25,7 @@ export async function fetchBooks(
         title: item.volumeInfo.title,
         image: item.volumeInfo.imageLinks?.thumbnail,
         authors: item.volumeInfo.authors || [],
-        wishlist: false,
+        wishlist: isInWishlist(item.id),
       };
     });
     return { books, total: data.totalItems };

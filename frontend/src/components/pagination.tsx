@@ -24,20 +24,21 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <div className="pagination">
       <button
-        onClick={() => handleClick(currentPage - 1)}
-        disabled={currentPage === 0}
-      >
-        Prev
-      </button>
-      <button
-        key="0"
+        key="22a"
         onClick={() => handleClick(0)}
         className={0 === currentPage ? 'active' : ''}
       >
         Beginging
       </button>
+      <button
+        key="11a"
+        onClick={() => handleClick(currentPage - 1)}
+        className={0 === currentPage ? 'active' : ''}
+      >
+        Prev
+      </button>
 
-      <button key="0" onClick={() => handleClick(currentPage + 1)}>
+      <button key="33a" onClick={() => handleClick(currentPage + 1)}>
         Next
       </button>
 

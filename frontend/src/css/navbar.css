@@ -51,3 +51,17 @@ input.search {
     background-position: right 10px center;
     width: 300px;
 }
+
+@media (max-width: 767px) {
+    .search-bar {
+        flex-direction: column;
+    }
+
+    .search-input {
+        order: 2;
+    }
+
+    .search-button {
+        order: 1;
+    }
+}

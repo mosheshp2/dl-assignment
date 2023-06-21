@@ -5,25 +5,36 @@ import { fetchBooks } from './services/book-service';
 import { Book } from './models/book';
 import Pagination from './components/pagination';
 import BookListItem from './components/book-list-item';
+import {
+  addToWishlist,
+  getWishlistFromStorage,
+  removeFromWishlist,
+} from './services/wishlist-service';
+import spinner from './assets/spinner.svg';
 
 const App: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('books');
+  const [searchTerm, setSearchTerm] = useState('e books');
   const [wishlistOnly, setWishlistOnly] = useState(false);
   const [fetchedBooks, setFetchedBooks] = useState<Book[]>([]);
+  const [wishListItems, setWishListItems] = useState<Book[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [booksPerPage] = useState<number>(20);
   const [totalBooks, setTotalBooks] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const handleSearch = debounce(
       async function (query: string, page: number) {
         try {
+          setLoading(true);
           const { books, total } = await fetchBooks(query, page);
+
           setFetchedBooks(books);
           setTotalBooks(total);
-        } catch (error) {
+        } catch (error: any) {
           console.error('Error fetching books:', error);
         }
+        setLoading(false);
       },
       500,
       { leading: false, trailing: true },
@@ -33,20 +44,19 @@ const App: React.FC = () => {
     return () => handleSearch.cancel();
   }, [searchTerm, currentPage]);
 
-  const handleWishlistToggle = () => {
-    setWishlistOnly((prevState) => !prevState);
-  };
+  useEffect(() => {
+    if (wishlistOnly) {
+      setWishListItems(getWishlistFromStorage());
+    }
+  }, [wishlistOnly]);
+
   const handleAddToWishlist = (book: Book) => {
     const updatedBooks = fetchedBooks.map((_book) =>
-      _book.id === book.id ? { ..._book, wishlist: _book.wishlist } : _book,
+      _book.id === book.id ? book : _book,
     );
+    book.wishlist ? addToWishlist(book) : removeFromWishlist(book);
 
     setFetchedBooks(updatedBooks);
-    // Save updated wishlist to local storage
-    localStorage.setItem(
-      'wishlist',
-      JSON.stringify(updatedBooks.filter((b) => b.wishlist)),
-    );
   };
 
   return (
@@ -57,16 +67,23 @@ const App: React.FC = () => {
           setCurrentPage(0);
         }}
         wishlistOnly={wishlistOnly}
-        handleWishlistToggle={handleWishlistToggle}
+        handleWishlistToggle={() => setWishlistOnly((prevState) => !prevState)}
       />
       <div className="book-list">
-        {fetchedBooks.map((book) => (
-          <BookListItem
-            key={book.id}
-            book={book}
-            onAddToWishlist={handleAddToWishlist}
-          />
-        ))}
+        <>
+          {(wishlistOnly ? wishListItems : fetchedBooks).map((book) => (
+            <BookListItem
+              key={book.id}
+              book={book}
+              onAddToWishlist={handleAddToWishlist}
+            />
+          ))}
+          {loading ? (
+            <div className="spinner">
+              <img src={spinner} alt="Loading..." />
+            </div>
+          ) : null}
+        </>
       </div>
 
       <Pagination
