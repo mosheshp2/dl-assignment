@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import debounce from 'lodash/debounce';
-import './App.css';
 import NavBar from './components/navbar';
 import { fetchBooks } from './services/book-service';
 import { Book } from './models/book';
 import Pagination from './components/pagination';
+import BookListItem from './components/book-list-item';
 
 const App: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('books');
@@ -18,7 +18,6 @@ const App: React.FC = () => {
     const handleSearch = debounce(
       async function (query: string, page: number) {
         try {
-          console.debug('requesting: ', query, page);
           const { books, total } = await fetchBooks(query, page);
           setFetchedBooks(books);
           setTotalBooks(total);
@@ -37,6 +36,18 @@ const App: React.FC = () => {
   const handleWishlistToggle = () => {
     setWishlistOnly((prevState) => !prevState);
   };
+  const handleAddToWishlist = (book: Book) => {
+    const updatedBooks = fetchedBooks.map((_book) =>
+      _book.id === book.id ? { ..._book, wishlist: _book.wishlist } : _book,
+    );
+
+    setFetchedBooks(updatedBooks);
+    // Save updated wishlist to local storage
+    localStorage.setItem(
+      'wishlist',
+      JSON.stringify(updatedBooks.filter((b) => b.wishlist)),
+    );
+  };
 
   return (
     <div>
@@ -48,12 +59,13 @@ const App: React.FC = () => {
         wishlistOnly={wishlistOnly}
         handleWishlistToggle={handleWishlistToggle}
       />
-      <div className="bookList">
+      <div className="book-list">
         {fetchedBooks.map((book) => (
-          <div key={book.id}>
-            <span>{book.title}</span>
-            {book.wishlist && <span> (Wishlist)</span>}
-          </div>
+          <BookListItem
+            key={book.id}
+            book={book}
+            onAddToWishlist={handleAddToWishlist}
+          />
         ))}
       </div>
 
