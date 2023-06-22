@@ -43,11 +43,11 @@ const App: React.FC = () => {
 
     return () => handleSearch.cancel();
   }, [searchTerm, currentPage]);
+  const refreshWishlist = () =>
+    wishlistOnly && setWishListItems(getWishlistFromStorage());
 
   useEffect(() => {
-    if (wishlistOnly) {
-      setWishListItems(getWishlistFromStorage());
-    }
+    refreshWishlist();
   }, [wishlistOnly]);
 
   const handleAddToWishlist = (book: Book) => {
@@ -55,7 +55,8 @@ const App: React.FC = () => {
       _book.id === book.id ? book : _book,
     );
     book.wishlist ? addToWishlist(book) : removeFromWishlist(book);
-
+    refreshWishlist();
+    
     setFetchedBooks(updatedBooks);
   };
 
