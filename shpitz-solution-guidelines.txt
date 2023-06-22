@@ -3,8 +3,9 @@ I tried to do my best in short time, to have the following points:
 1. working solution, from end to end
 2. componentized code - split subjects to different components and parts.
 3. splited my effort to tasks - skeleton, header, service, results pad, styling, mobile support.
-4. did every demand in the readme bullets.
+4. did every requirement from the readme bullets.
 5. tried to do as close as possible to the design (not 100% the same)
+6. adopted to mobile
 
 what I didn't do:
 1. didnt use  MUI or other ui framework
