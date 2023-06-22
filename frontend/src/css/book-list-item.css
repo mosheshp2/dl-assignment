@@ -12,7 +12,7 @@ div.spinner {
 .book-list {
     display: flex;
     height: 700px;
-    max-width: 1200px;
+    max-width: 1250px;
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin: 0 auto;
