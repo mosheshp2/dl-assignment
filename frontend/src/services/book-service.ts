@@ -1,4 +1,5 @@
 import { Book } from '../models/book';
+import { isInWishlist } from './wishlist-service';
 
 interface BookResponse {
   books: Book[];
@@ -6,7 +7,7 @@ interface BookResponse {
 }
 
 const PAGE_SIZE = 20;
-const googleUrl = `https://www.googleapis.com/books/v1/volumes?maxResults=${PAGE_SIZE}`;
+const googleUrl = `https://www.googleapis.com/books/v1/volumes?printType=books&maxResults=${PAGE_SIZE}`;
 
 export async function fetchBooks(
   query: string,
@@ -22,7 +23,9 @@ export async function fetchBooks(
       return {
         id: item.id,
         title: item.volumeInfo.title,
-        wishlist: false,
+        image: item.volumeInfo.imageLinks?.thumbnail,
+        authors: item.volumeInfo.authors || [],
+        wishlist: isInWishlist(item.id),
       };
     });
     return { books, total: data.totalItems };
