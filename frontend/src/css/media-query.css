@@ -1,0 +1,25 @@
+/* Media Query for mobile device */
+@media (max-width: 767px) {
+    nav {
+        flex-direction: column;
+        gap: 15px
+    }
+
+    nav .search {
+        order: 2;
+        width: 93%;
+    }
+
+    nav .items {
+        order: 1;
+        width: 100%;
+    }
+
+    nav .items a {
+        text-indent: -9999px;
+    }
+
+    .book-list {
+        padding: 0;
+    }
+}

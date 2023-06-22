@@ -11,6 +11,7 @@ import {
   removeFromWishlist,
 } from './services/wishlist-service';
 import spinner from './assets/spinner.svg';
+import './css/media-query.css';
 
 const App: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('e books');
@@ -43,11 +44,9 @@ const App: React.FC = () => {
 
     return () => handleSearch.cancel();
   }, [searchTerm, currentPage]);
-  const refreshWishlist = () =>
-    wishlistOnly && setWishListItems(getWishlistFromStorage());
 
   useEffect(() => {
-    refreshWishlist();
+    wishlistOnly && setWishListItems(getWishlistFromStorage());
   }, [wishlistOnly]);
 
   const handleAddToWishlist = (book: Book) => {
@@ -55,8 +54,9 @@ const App: React.FC = () => {
       _book.id === book.id ? book : _book,
     );
     book.wishlist ? addToWishlist(book) : removeFromWishlist(book);
-    refreshWishlist();
-    
+
+    wishlistOnly && setWishListItems(getWishlistFromStorage());
+
     setFetchedBooks(updatedBooks);
   };
 
