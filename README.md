@@ -5,6 +5,12 @@
 Create a web project written in typescript using React \
 The webapp should be fully responsive & support desktop & mobile devices:
 
+### Working solution:
+
+https://bit.ly/doorloop-assignment
+
+see `shpitz-solution-guidelines.txt`, for explanations
+
 ### Requirements:
 
 - App Screen: 
