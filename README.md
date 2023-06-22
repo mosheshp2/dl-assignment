@@ -7,7 +7,7 @@ The webapp should be fully responsive & support desktop & mobile devices:
 
 ### Working solution:
 
-https://bit.ly/doorloop-assignment
+[built solution: https://bit.ly/doorloop-assignment](https://bit.ly/doorloop-assignment{:target="_blank"})
 
 see `shpitz-solution-guidelines.txt`, for explanations
 
